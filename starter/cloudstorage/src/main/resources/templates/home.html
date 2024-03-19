@@ -25,7 +25,7 @@
                 </nav>
                 <div class="tab-content" id="nav-tabContent">
                     <div class="tab-pane fade show active" id="nav-files" role="tabpanel" aria-labelledby="nav-files-tab">
-                        <form action="#" th:action="@{/file}"enctype="multipart/form-data" method="POST">
+                        <form action="#" th:action="@{/home}"enctype="multipart/form-data" method="POST">
                             <div class="container">
                                 <div class="row" style="margin: 1em;">
                                     <div class="col-sm-2">
@@ -65,7 +65,7 @@
                             + Add a New Note
                         </button>
 
-                        <div class="table-responsive">
+                        <div th:if="${notes==null || notes.isEmpty()}" class="table-responsive">
                             <table class="table table-striped" id="userTable">
                                 <thead>
                                     <tr>
@@ -75,13 +75,13 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
+                                    <tr th:each="note: ${notes}">
                                         <td>
-                                            <button type="button" class="btn btn-success">Edit</button>
-                                            <a class="btn btn-danger">Delete</a>
+                                            <button  type="button" class="btn btn-success" th:onclick="showNoteModal([[${note.noteId}]],[[${note.noteTitle}]],[[${note.noteDescription}]])">Edit</button>
+                                            <a class="btn btn-danger" th:href="@{/notes/delete/{noteid} (noteId=${note.noteId})}">Delete</a>
                                         </td>
-                                        <th scope="row">Example Note Title</th>
-                                        <td>Example Note Description </td>
+                                        <th th:text="${note.noteTitle}" scope="row">Example Note Title</th>
+                                        <td th:text="${note.noteDescription}" >Example Note Description </td>
                                     </tr>
                                 </tbody>
                             </table>
