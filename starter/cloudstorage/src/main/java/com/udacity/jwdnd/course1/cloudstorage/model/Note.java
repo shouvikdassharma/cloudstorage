@@ -8,6 +8,11 @@ public class Note {
     private String noteDescription;
     private String noteTitle;
 
+    public  Note()
+    {
+
+    }
+
     public Integer getUserId() {
         return userId;
     }

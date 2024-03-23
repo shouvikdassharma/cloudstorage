@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -23,7 +24,7 @@ public class NoteController {
 
     private NoteService noteService;
 
-    @GetMapping("/notes")
+    @PostMapping("/notes")
     public String createAndUpdateNote(Model model, Note note, Authentication authentication)
     {
         User user=userService.getUser(authentication.getName());
@@ -41,8 +42,8 @@ public class NoteController {
         model.addAttribute("success",true);
         return "result";
     }
-    @GetMapping("/notes/delete/{noteid}")
-    public String delete(@PathVariable("noteid") Integer noteId)
+    @GetMapping("/notes/delete/{noteId}")
+    public String delete(@PathVariable("noteId") Integer noteId)
     {
         noteService.deleteNote(noteId);
         return "result";
